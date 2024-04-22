@@ -6,7 +6,7 @@ A simple calculator created with JavaScript, HTML, and CSS.
 
 This project is a simple calculator created as part of The Odin Project bootcamp. It should compute basic math functions, with a sleek and intuitive design.
 
-## Technologis
+## Technologies
 
 This project is created with:
 
