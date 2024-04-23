@@ -56,7 +56,8 @@ button {
   cursor: pointer;
 }
 
-.numbers {
+.numbers,
+.decimal {
   background-color: #92b4a7;
 }
 
@@ -68,6 +69,6 @@ button {
   background-color: #93827f;
 }
 
-#zero {
+#n0 {
   width: 175px;
 }
