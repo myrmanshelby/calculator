@@ -1,8 +1,11 @@
 /* TO DO
-- create calculator in HTML
-- design with CSS
 - Make the functions to populate the display
 - Connect the buttons/make the calculator work
+*/
+
+/* Notes on rounding:
+The max length of a number with a decimal is 15 digits
+The max length of a number without a decimal is 16 digits
 */
 
 let num1Input;
@@ -20,6 +23,13 @@ function operate(operator, num1, num2) {
     case "/":
       return divide(num1, num2);
   }
+}
+
+// Functions to populate the display
+
+function populateLowerDisplay(outputNumber) {
+  const lowerDisplay = document.querySelector(".lower-display");
+  lowerDisplay.textContent = outputNumber;
 }
 
 // Below are the mathematical functions used by the calculator.
