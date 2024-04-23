@@ -11,8 +11,10 @@ The max length of a number without a decimal is 16 digits
 let num1Input = "";
 let num2Input = "";
 let operatorInput = "";
+let enteringNum1 = true;
 
 // BUG: DOESN'T ALLOW USER TO INPUT MULTIPLE DIGIT NUMBERS
+//      solution use a boolean that tracks if the lastPressed was a number or operator
 // BUG: 8 * 9 = / in upper display because of operatorBtns event listener
 //    solution: need to create a function to populate the upper display, which either adds content or
 //    replaces based on existence of num1Input, num2Input, and operatorInput
@@ -21,7 +23,7 @@ let operatorInput = "";
 const upperDisplay = document.querySelector(".upper-display");
 
 // Makes number buttons work
-
+/*
 const numberBtns = document.querySelectorAll(".numbers");
 numberBtns.forEach((button) => {
   button.addEventListener("click", () => {
@@ -35,6 +37,21 @@ numberBtns.forEach((button) => {
       upperDisplay.textContent += " " + num2Input;
     }
   });
+});*/
+
+const numberBtns = document.querySelectorAll(".numbers");
+numberBtns.forEach((button) => {
+  button.addEventListener("click", () => {
+    if (enteringNum1) {
+      num1Input += button.id[1];
+      upperDisplay.textContent += button.id[1];
+      populateLowerDisplay(num1Input);
+    } else {
+      num2Input += button.id[1];
+      upperDisplay.textContent += button.id[1];
+      populateLowerDisplay(num2Input);
+    }
+  });
 });
 
 // Makes operator buttons work
@@ -43,7 +60,8 @@ operatorBtns.forEach((button) => {
   button.addEventListener("click", () => {
     if (operatorInput === "") {
       operatorInput = button.id;
-      upperDisplay.textContent += " " + getOperatorString(button.id);
+      upperDisplay.textContent += " " + getOperatorString(button.id) + " ";
+      enteringNum1 = false;
     } else {
       num1Input = operate(operatorInput, num1Input, num2Input);
       num2Input = "";
@@ -61,7 +79,7 @@ equalsBtn.addEventListener("click", () => {
   num2Input = "";
   operatorInput = "";
 
-  upperDisplay.textContent += " =";
+  upperDisplay.textContent = num1Input;
   populateLowerDisplay(num1Input);
 });
 
@@ -71,6 +89,8 @@ function populateLowerDisplay(outputNumber) {
   const lowerDisplay = document.querySelector(".lower-display");
   lowerDisplay.textContent = outputNumber;
 }
+
+function populateUpperDisplay(text) {}
 
 // Below are the mathematical functions used by the calculator.
 // They are called by the operate function to run the calculator
@@ -93,6 +113,8 @@ function divide(a, b) {
 // Allows use of mathematical operators when equal function
 // or second operator is called
 function operate(operator, num1, num2) {
+  num1 = parseFloat(num1);
+  num2 = parseFloat(num2);
   switch (operator) {
     case "plus":
       return add(num1, num2);
