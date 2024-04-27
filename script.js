@@ -1,3 +1,6 @@
+/* TO DO:
+ROUND AND DECIMAL BUTTON */
+
 /* Notes on rounding:
 The max length of a number with a decimal is 15 digits
 The max length of a number without a decimal is 16 digits
@@ -64,6 +67,54 @@ equalsBtn.addEventListener("click", () => {
   populateLowerDisplay(result);
 });
 
+// TOP BUTTONS
+const clearBtn = document.getElementById("clear");
+clearBtn.addEventListener("click", () => {
+  result = "";
+  num1Input = "";
+  num2Input = "";
+  operatorInput = "";
+  enteringNum1 = true;
+  populateLowerDisplay("");
+  populateUpperDisplay();
+});
+
+const plusMinusBtn = document.getElementById("plus-minus");
+plusMinusBtn.addEventListener("click", () => {
+  if (num2Input === "" && num1Input === "") {
+    result *= -1;
+    const upperDisplay = document.querySelector(".upper-display");
+    upperDisplay.textContent = result;
+    populateLowerDisplay(result);
+  } else if (num2Input === "") {
+    num1Input *= -1;
+    populateLowerDisplay(num1Input);
+    populateUpperDisplay();
+  } else {
+    num2Input *= -1;
+    populateLowerDisplay(num2Input);
+    populateUpperDisplay();
+  }
+});
+
+const percent = document.getElementById("percent");
+percent.addEventListener("click", () => {
+  if (num2Input === "" && num1Input === "") {
+    result *= 0.01;
+    const upperDisplay = document.querySelector(".upper-display");
+    upperDisplay.textContent = result;
+    populateLowerDisplay(result);
+  } else if (num2Input === "") {
+    num1Input *= 0.01;
+    populateLowerDisplay(num1Input);
+    populateUpperDisplay();
+  } else {
+    num2Input *= 0.01;
+    populateLowerDisplay(num2Input);
+    populateUpperDisplay();
+  }
+});
+
 // Functions to populate the display
 
 function populateLowerDisplay(outputNumber) {
@@ -73,7 +124,9 @@ function populateLowerDisplay(outputNumber) {
 
 function populateUpperDisplay() {
   const upperDisplay = document.querySelector(".upper-display");
-  if (operatorInput === "") {
+  if (num1Input === "") {
+    upperDisplay.textContent = "";
+  } else if (operatorInput === "") {
     upperDisplay.textContent = num1Input;
   } else if (num2Input === "") {
     upperDisplay.textContent =
