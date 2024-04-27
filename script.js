@@ -81,16 +81,16 @@ clearBtn.addEventListener("click", () => {
 
 const plusMinusBtn = document.getElementById("plus-minus");
 plusMinusBtn.addEventListener("click", () => {
-  if (num2Input === "" && num1Input === "") {
+  if (num2Input === "" && num1Input === "" && !(result === "")) {
     result *= -1;
     const upperDisplay = document.querySelector(".upper-display");
     upperDisplay.textContent = result;
     populateLowerDisplay(result);
-  } else if (num2Input === "") {
+  } else if (num2Input === "" && !(num1Input === "")) {
     num1Input *= -1;
     populateLowerDisplay(num1Input);
     populateUpperDisplay();
-  } else {
+  } else if (!(num2Input === "")) {
     num2Input *= -1;
     populateLowerDisplay(num2Input);
     populateUpperDisplay();
@@ -99,16 +99,16 @@ plusMinusBtn.addEventListener("click", () => {
 
 const percent = document.getElementById("percent");
 percent.addEventListener("click", () => {
-  if (num2Input === "" && num1Input === "") {
+  if (num2Input === "" && num1Input === "" && !(result === "")) {
     result *= 0.01;
     const upperDisplay = document.querySelector(".upper-display");
     upperDisplay.textContent = result;
     populateLowerDisplay(result);
-  } else if (num2Input === "") {
+  } else if (num2Input === "" && !(num1Input === "")) {
     num1Input *= 0.01;
     populateLowerDisplay(num1Input);
     populateUpperDisplay();
-  } else {
+  } else if (!(num2Input === "")) {
     num2Input *= 0.01;
     populateLowerDisplay(num2Input);
     populateUpperDisplay();
