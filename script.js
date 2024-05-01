@@ -1,11 +1,3 @@
-/* TO DO:
-ROUND AND DECIMAL BUTTON */
-
-/* Notes on rounding:
-The max length of a number with a decimal is 15 digits
-The max length of a number without a decimal is 16 digits
-*/
-
 let num1Input = "";
 let num2Input = "";
 let operatorInput = "";
@@ -74,7 +66,7 @@ equalsBtn.addEventListener("click", () => {
   num2Input = "";
   operatorInput = "";
   const upperDisplay = document.querySelector(".upper-display");
-  upperDisplay.textContent = result;
+  upperDisplay.textContent = roundLongNumber(result);
   enteringNum1 = true;
   decimalOn = false;
   populateLowerDisplay(result);
@@ -127,13 +119,14 @@ percent.addEventListener("click", () => {
     populateLowerDisplay(num2Input);
     populateUpperDisplay();
   }
+  decimalOn = true;
 });
 
 // Functions to populate the display
 
 function populateLowerDisplay(outputNumber) {
   const lowerDisplay = document.querySelector(".lower-display");
-  lowerDisplay.textContent = outputNumber;
+  lowerDisplay.textContent = roundLongNumber(outputNumber);
 }
 
 function populateUpperDisplay() {
@@ -141,18 +134,30 @@ function populateUpperDisplay() {
   if (num1Input === "") {
     upperDisplay.textContent = "";
   } else if (operatorInput === "") {
-    upperDisplay.textContent = num1Input;
+    upperDisplay.textContent = roundLongNumber(num1Input);
   } else if (num2Input === "") {
     upperDisplay.textContent =
-      num1Input + " " + getOperatorString(operatorInput);
+      roundLongNumber(num1Input) + " " + getOperatorString(operatorInput);
   } else {
     upperDisplay.textContent =
-      num1Input + " " + getOperatorString(operatorInput) + " " + num2Input;
+      roundLongNumber(num1Input) +
+      " " +
+      getOperatorString(operatorInput) +
+      " " +
+      roundLongNumber(num2Input);
   }
 }
 
 // Below are the mathematical functions used by the calculator.
 // They are called by the operate function to run the calculator
+function roundLongNumber(a) {
+  if (a.toString().length > 15) {
+    return parseFloat(a).toExponential(3);
+  } else {
+    return a;
+  }
+}
+
 function add(a, b) {
   return a + b;
 }
