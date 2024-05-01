@@ -11,6 +11,7 @@ let num2Input = "";
 let operatorInput = "";
 let result = "";
 let enteringNum1 = true;
+let decimalOn = false;
 
 // Makes number buttons work
 const numberBtns = document.querySelectorAll(".numbers");
@@ -18,16 +19,30 @@ numberBtns.forEach((button) => {
   button.addEventListener("click", () => {
     if (enteringNum1) {
       num1Input += button.id[1];
-      //upperDisplay.textContent += button.id[1];
       populateUpperDisplay();
       populateLowerDisplay(num1Input);
     } else {
       num2Input += button.id[1];
-      //upperDisplay.textContent += button.id[1];
       populateUpperDisplay();
       populateLowerDisplay(num2Input);
     }
   });
+});
+
+const decimalBtn = document.getElementById("decimal");
+decimalBtn.addEventListener("click", () => {
+  if (!decimalOn) {
+    if (enteringNum1) {
+      num1Input += ".";
+      populateUpperDisplay();
+      populateLowerDisplay(num1Input);
+    } else {
+      num2Input += ".";
+      populateUpperDisplay();
+      populateLowerDisplay(num2Input);
+    }
+    decimalOn = true;
+  }
 });
 
 // Makes operator buttons work
@@ -36,21 +51,18 @@ operatorBtns.forEach((button) => {
   button.addEventListener("click", () => {
     if (num1Input === "") {
       num1Input = result;
-    }
-    if (operatorInput === "") {
+    } else if (operatorInput === "" || num2Input === "") {
       operatorInput = button.id;
-      //upperDisplay.textContent += " " + getOperatorString(button.id) + " ";
       enteringNum1 = false;
     } else {
       num1Input = operate(operatorInput, num1Input, num2Input);
       num2Input = "";
       operatorInput = button.id;
-      //upperDisplay.textContent =
-      //  num1Input + " " + getOperatorString(operatorInput) + " ";
       populateLowerDisplay(num1Input);
       enteringNum1 = false;
     }
 
+    decimalOn = false;
     populateUpperDisplay();
   });
 });
@@ -64,6 +76,7 @@ equalsBtn.addEventListener("click", () => {
   const upperDisplay = document.querySelector(".upper-display");
   upperDisplay.textContent = result;
   enteringNum1 = true;
+  decimalOn = false;
   populateLowerDisplay(result);
 });
 
@@ -75,6 +88,7 @@ clearBtn.addEventListener("click", () => {
   num2Input = "";
   operatorInput = "";
   enteringNum1 = true;
+  decimalOn = false;
   populateLowerDisplay("");
   populateUpperDisplay();
 });
