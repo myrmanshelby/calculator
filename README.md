@@ -16,4 +16,4 @@ This project is created with:
 
 ## Setup
 
-To run the calculator, click here.
+To run the calculator, [click here](https://myrmanshelby.github.io/calculator/).
